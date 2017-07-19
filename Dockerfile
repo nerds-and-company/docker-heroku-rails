@@ -45,11 +45,6 @@ RUN mkdir -p /app/.profile.d/
 RUN echo "cd /app/user/" > /app/.profile.d/home.sh
 RUN echo "export PATH=\"$PATH\" GEM_PATH=\"$GEM_PATH\" GEM_HOME=\"$GEM_HOME\" SECRET_KEY_BASE=\"\${SECRET_KEY_BASE:-$SECRET_KEY_BASE}\" BUNDLE_APP_CONFIG=\"$BUNDLE_APP_CONFIG\"" > /app/.profile.d/ruby.sh
 
-COPY ./init.sh /usr/bin/init.sh
-RUN chmod +x /usr/bin/init.sh
-
-ENTRYPOINT ["/usr/bin/init.sh"]
-
 # Run bundler to cache dependencies
 ONBUILD COPY ["Gemfile", "Gemfile.lock", "/app/user/"]
 ONBUILD RUN bundle install --path /app/heroku/ruby/bundle --jobs 4
@@ -60,3 +55,8 @@ ONBUILD RUN npm install
 
 # Add all files
 ONBUILD ADD . /app/user
+
+ONBUILD COPY ./init.sh /usr/bin/init.sh
+ONBUILD RUN chmod +x /usr/bin/init.sh
+
+ENTRYPOINT ["/usr/bin/init.sh"]
