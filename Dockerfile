@@ -27,6 +27,23 @@ RUN curl -s --retry 3 -L http://s3pository.heroku.com/node/v$NODE_VERSION/node-v
 RUN mv /app/heroku/ruby/node-v$NODE_VERSION-linux-x64 /app/heroku/ruby/node-$NODE_VERSION
 ENV PATH /app/heroku/ruby/node-$NODE_VERSION/bin:$PATH
 
+# Install Chrome WebDriver
+RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
+ && mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION \
+ && curl -sS -o /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip \
+ && unzip -qq /tmp/chromedriver_linux64.zip -d /opt/chromedriver-$CHROMEDRIVER_VERSION \
+ && rm /tmp/chromedriver_linux64.zip \
+ && chmod +x /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver \
+ && ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
+
+# Install Google Chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+ && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+ && apt-get update -qqy \
+ && apt-get -qqy install xvfb google-chrome-stable \
+ && rm /etc/apt/sources.list.d/google-chrome.list \
+ && rm -rf /var/lib/apt/lists/*
+
 # Install phantom.js
 RUN cd /tmp && curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 && \
       tar xjf /tmp/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C /tmp && \
