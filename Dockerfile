@@ -1,4 +1,5 @@
 FROM heroku/heroku:16-build
+MAINTAINER Bob Olde Hampsink <b.oldehampsink@nerds.company>
 
 # Which versions?
 ENV RUBY_MAJOR_VERSION 2.4.0
