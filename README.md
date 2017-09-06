@@ -10,4 +10,3 @@ Usage: `FROM nerdsandcompany/docker-heroku-rails`
 * Node 6.x
 * Chrome
 * ChromeDriver
-* PhantomJS

@@ -6,7 +6,6 @@ ENV RUBY_MAJOR_VERSION 2.4.0
 ENV RUBY_VERSION 2.4.1
 ENV NODE_VERSION 6.11.2
 ENV BUNDLER_VERSION 1.15.2
-ENV PHANTOMJS_VERSION 2.1.1
 ENV LC_ALL en_US.UTF-8
 
 # Create some needed directories
@@ -44,11 +43,6 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
  && apt-get -qqy install xvfb google-chrome-stable \
  && rm /etc/apt/sources.list.d/google-chrome.list \
  && rm -rf /var/lib/apt/lists/*
-
-# Install phantom.js
-RUN cd /tmp && curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 && \
-      tar xjf /tmp/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C /tmp && \
-      mv /tmp/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin
 
 # Install Bundler
 RUN gem install bundler -v $BUNDLER_VERSION --no-ri --no-rdoc
