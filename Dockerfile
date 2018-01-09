@@ -4,8 +4,10 @@ MAINTAINER Bob Olde Hampsink <b.oldehampsink@nerds.company>
 # Which versions?
 ENV RUBY_MAJOR_VERSION 2.5.0
 ENV RUBY_VERSION 2.5.0
-ENV NODE_VERSION 8.9.4
 ENV BUNDLER_VERSION 1.15.2
+ENV NODE_VERSION 8.9.4
+ENV YARN_VERSION 1.0.2
+
 ENV LC_ALL en_US.UTF-8
 
 # Create some needed directories
@@ -27,6 +29,11 @@ RUN curl -s --retry 3 -L http://s3pository.heroku.com/node/v$NODE_VERSION/node-v
 RUN mv /app/heroku/ruby/node-v$NODE_VERSION-linux-x64 /app/heroku/ruby/node-$NODE_VERSION
 ENV PATH /app/heroku/ruby/node-$NODE_VERSION/bin:$PATH
 
+# Install Yarn
+RUN curl -s --retry 3 -L https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz | tar xz -C /app/heroku/ruby/
+RUN mv /app/heroku/ruby/yarn-v$YARN_VERSION /app/heroku/ruby/yarn-$YARN_VERSION
+ENV PATH /app/heroku/ruby/yarn-$YARN_VERSION/bin:$PATH
+
 # Install Chrome WebDriver
 RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
  && mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION \
@@ -35,16 +42,12 @@ RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RE
  && rm /tmp/chromedriver_linux64.zip \
  && chmod +x /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver \
  && ln -fs /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver /usr/local/bin/chromedriver
- 
-# Add source for yarn
-RUN curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install Google Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
  && apt-get update -qqy \
- && apt-get -qqy install yarn xvfb google-chrome-stable \
+ && apt-get -qqy install google-chrome-stable \
  && rm /etc/apt/sources.list.d/google-chrome.list \
  && rm -rf /var/lib/apt/lists/*
 
