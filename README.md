@@ -5,8 +5,8 @@ Usage: `FROM nerdsandcompany/docker-heroku-rails`
 # Specifications
 
 * Heroku 16
-* Ruby 2.4.x
+* Ruby 2.5.x
 * Bundler
-* Node 6.x
+* Node 8.x
 * Chrome
 * ChromeDriver
