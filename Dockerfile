@@ -64,6 +64,9 @@ RUN mkdir -p /app/.profile.d/
 RUN echo "cd /app/user/" > /app/.profile.d/home.sh
 RUN echo "export PATH=\"$PATH\" GEM_PATH=\"$GEM_PATH\" GEM_HOME=\"$GEM_HOME\" SECRET_KEY_BASE=\"\${SECRET_KEY_BASE:-$SECRET_KEY_BASE}\" BUNDLE_APP_CONFIG=\"$BUNDLE_APP_CONFIG\"" > /app/.profile.d/ruby.sh
 
+# Make sure private dependencies are copied
+ONBUILD COPY ./vendor /app/user/vendor
+
 # Run bundler to cache dependencies
 ONBUILD COPY ["Gemfile", "Gemfile.lock", "/app/user/"]
 ONBUILD RUN bundle install --path /app/heroku/ruby/bundle --jobs 4
