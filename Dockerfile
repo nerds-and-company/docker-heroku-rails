@@ -72,8 +72,7 @@ ONBUILD RUN bundle install --path /app/heroku/ruby/bundle --jobs 4
 
 # run npm or yarn install
 # add yarn.lock to .slugignore in your project
-ONBUILD COPY .npmr* /app/user/
-ONBUILD ADD package*.json yarn.* /app/user/
+ONBUILD ADD package*.json yarn.* .npmr* /app/user/
 ONBUILD RUN [ -f yarn.lock ] && yarn install --no-progress || npm install
 
 # Add all files
