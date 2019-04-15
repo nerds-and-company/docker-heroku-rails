@@ -1,9 +1,9 @@
 FROM heroku/heroku:18-build
 
 # Which versions?
-ENV RUBY_MAJOR_VERSION 2.5.0
-ENV RUBY_VERSION 2.5.5
-ENV BUNDLER_VERSION 1.15.2
+ENV RUBY_MAJOR_VERSION 2.6.0
+ENV RUBY_VERSION 2.6.2
+ENV BUNDLER_VERSION 2.0.1
 ENV NODE_VERSION 10.14.1
 ENV YARN_VERSION 1.12.3
 
@@ -51,7 +51,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
  && rm -rf /var/lib/apt/lists/*
 
 # Install Bundler
-RUN gem install bundler -v $BUNDLER_VERSION --no-ri --no-rdoc
+RUN gem install bundler -v $BUNDLER_VERSION --no-document
 ENV PATH /app/user/bin:/app/heroku/ruby/bundle/ruby/$RUBY_MAJOR_VERSION/bin:$PATH
 ENV BUNDLE_APP_CONFIG /app/heroku/ruby/.bundle/config
 
