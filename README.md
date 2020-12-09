@@ -4,10 +4,10 @@ Usage: `FROM nerdsandcompany/docker-heroku-rails`
 
 # Specifications
 
-* Heroku 18
-* Ruby 2.7.1
+* Heroku 20
+* Ruby 2.7.2
 * Bundler 2.0.2
-* Node 14.2.0
-* Yarn 1.22.4
+* Node 14.15.1
+* Yarn 1.22.10
 * Chrome
 * ChromeDriver
