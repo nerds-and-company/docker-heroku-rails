@@ -21,7 +21,7 @@ RUN mkdir -p /app/heroku/ruby/bundle/ruby/$RUBY_MAJOR_VERSION
 
 # Install Ruby
 RUN mkdir -p /app/heroku/ruby/ruby-$RUBY_VERSION
-RUN curl -s --retry 3 -L https://heroku-buildpack-ruby.s3.amazonaws.com/heroku-18/ruby-$RUBY_VERSION.tgz | tar xz -C /app/heroku/ruby/ruby-$RUBY_VERSION
+RUN curl -s --retry 3 -L https://heroku-buildpack-ruby.s3.amazonaws.com/heroku-20/ruby-$RUBY_VERSION.tgz | tar xz -C /app/heroku/ruby/ruby-$RUBY_VERSION
 ENV PATH /app/heroku/ruby/ruby-$RUBY_VERSION/bin:$PATH
 
 # Install Node
