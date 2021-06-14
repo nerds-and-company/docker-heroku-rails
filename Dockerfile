@@ -63,6 +63,10 @@ ENV SECRET_KEY_BASE $(openssl rand -base64 32)
 ONBUILD ARG NERDS_GITHUB_TOKEN
 ONBUILD ENV BUNDLE_RUBYGEMS__PKG__GITHUB__COM $NERDS_GITHUB_TOKEN
 
+# Set github token for use with private npm packages
+ONBUILD ARG GITHUB_TOKEN
+ONBUILD ENV GITHUB_TOKEN $GITHUB_TOKEN
+
 # export env vars during run time
 RUN mkdir -p /app/.profile.d/
 RUN echo "cd /app/user/" > /app/.profile.d/home.sh
