@@ -2,9 +2,9 @@ FROM heroku/heroku:20-build
 
 # Which versions?
 ENV RUBY_MAJOR_VERSION 2.7.0
-ENV RUBY_VERSION 2.7.2
+ENV RUBY_VERSION 2.7.5
 # https://devcenter.heroku.com/articles/ruby-support#libraries
-ENV BUNDLER_VERSION 2.1.4
+ENV BUNDLER_VERSION 2.2.21
 ENV NODE_VERSION 14.15.1
 ENV YARN_VERSION 1.22.10
 
