@@ -1,12 +1,11 @@
-FROM heroku/heroku:20-build
+FROM heroku/heroku:22-build
 
 # Which versions?
-ENV RUBY_MAJOR_VERSION 2.7.0
-ENV RUBY_VERSION 2.7.6
+ENV RUBY_VERSION 3.1.2
 # https://devcenter.heroku.com/articles/ruby-support#libraries
-ENV BUNDLER_VERSION 2.3.12
-ENV NODE_VERSION 14.18.2
-ENV YARN_VERSION 1.22.10
+ENV BUNDLER_VERSION 2.3.10
+ENV NODE_VERSION 16.17.1
+ENV YARN_VERSION 1.22.19
 
 ENV LC_ALL en_US.UTF-8
 
@@ -14,18 +13,13 @@ ENV LC_ALL en_US.UTF-8
 RUN mkdir -p /app/user
 WORKDIR /app/user
 
-# So we can ruby in here
-ENV GEM_PATH /app/heroku/ruby/bundle/ruby/$RUBY_MAJOR_VERSION
-ENV GEM_HOME /app/heroku/ruby/bundle/ruby/$RUBY_MAJOR_VERSION
-RUN mkdir -p /app/heroku/ruby/bundle/ruby/$RUBY_MAJOR_VERSION
-
 # Install Ruby
 RUN mkdir -p /app/heroku/ruby/ruby-$RUBY_VERSION
-RUN curl -s --retry 3 -L https://heroku-buildpack-ruby.s3.amazonaws.com/heroku-20/ruby-$RUBY_VERSION.tgz | tar xz -C /app/heroku/ruby/ruby-$RUBY_VERSION
+RUN curl -s --retry 3 -L https://heroku-buildpack-ruby.s3.us-east-1.amazonaws.com/heroku-22/ruby-$RUBY_VERSION.tgz | tar xz -C /app/heroku/ruby/ruby-$RUBY_VERSION
 ENV PATH /app/heroku/ruby/ruby-$RUBY_VERSION/bin:$PATH
 
 # Install Node
-RUN curl -s --retry 3 -L http://s3pository.heroku.com/node/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | tar xz -C /app/heroku/ruby/
+RUN curl -s --retry 3 -L https://heroku-nodebin.s3.us-east-1.amazonaws.com/node/release/linux-x64/node-v$NODE_VERSION-linux-x64.tar.gz | tar xz -C /app/heroku/ruby/
 RUN mv /app/heroku/ruby/node-v$NODE_VERSION-linux-x64 /app/heroku/ruby/node-$NODE_VERSION
 ENV PATH /app/heroku/ruby/node-$NODE_VERSION/bin:$PATH
 
@@ -52,8 +46,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
  && rm -rf /var/lib/apt/lists/*
 
 # Install Bundler
-RUN gem install bundler -v $BUNDLER_VERSION --no-document
-ENV PATH /app/user/bin:/app/heroku/ruby/bundle/ruby/$RUBY_MAJOR_VERSION/bin:$PATH
+RUN gem install bundler -v $BUNDLER_VERSION --no-document -f
 ENV BUNDLE_APP_CONFIG /app/heroku/ruby/.bundle/config
 
 # Generate secret key
