@@ -5,7 +5,7 @@ ENV RUBY_MAJOR_VERSION 2.7.0
 ENV RUBY_VERSION 2.7.6
 # https://devcenter.heroku.com/articles/ruby-support#libraries
 ENV BUNDLER_VERSION 2.3.12
-ENV NODE_VERSION 14.18.2
+ENV NODE_VERSION 18.13.0
 ENV YARN_VERSION 1.22.10
 
 ENV LC_ALL en_US.UTF-8
@@ -25,7 +25,7 @@ RUN curl -s --retry 3 -L https://heroku-buildpack-ruby.s3.amazonaws.com/heroku-2
 ENV PATH /app/heroku/ruby/ruby-$RUBY_VERSION/bin:$PATH
 
 # Install Node
-RUN curl -s --retry 3 -L http://s3pository.heroku.com/node/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | tar xz -C /app/heroku/ruby/
+RUN curl -s --retry 3 -L https://heroku-nodebin.s3.us-east-1.amazonaws.com/node/release/linux-x64/node-v$NODE_VERSION-linux-x64.tar.gz | tar xz -C /app/heroku/ruby/
 RUN mv /app/heroku/ruby/node-v$NODE_VERSION-linux-x64 /app/heroku/ruby/node-$NODE_VERSION
 ENV PATH /app/heroku/ruby/node-$NODE_VERSION/bin:$PATH
 

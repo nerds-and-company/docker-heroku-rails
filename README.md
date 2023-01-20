@@ -7,7 +7,7 @@ Usage: `FROM nerdsandcompany/docker-heroku-rails`
 * Heroku 20
 * Ruby 2.7.5
 * Bundler 2.2.21
-* Node 14.18.2
+* Node 18.13.0
 * Yarn 1.22.10
 * Chrome
 * ChromeDriver
