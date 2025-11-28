@@ -4,7 +4,7 @@ FROM heroku/heroku:22-build
 ENV RUBY_VERSION 3.2.2
 # https://devcenter.heroku.com/articles/ruby-support#libraries
 ENV BUNDLER_VERSION 2.3.10
-ENV NODE_VERSION 24.0.0
+ENV NODE_VERSION 24.11.1
 ENV YARN_VERSION 1.22.19
 
 ENV LC_ALL en_US.UTF-8
@@ -19,7 +19,7 @@ RUN curl -s --retry 3 -L https://heroku-buildpack-ruby.s3.us-east-1.amazonaws.co
 ENV PATH /app/heroku/ruby/ruby-$RUBY_VERSION/bin:$PATH
 
 # Install Node
-RUN curl -s --retry 3 -L https://heroku-nodebin.s3.us-east-1.amazonaws.com/node/release/linux-x64/node-v$NODE_VERSION-linux-x64.tar.gz | tar xz -C /app/heroku/ruby/
+RUN curl -s --retry 3 -L https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | tar xz -C /app/heroku/ruby/
 RUN mv /app/heroku/ruby/node-v$NODE_VERSION-linux-x64 /app/heroku/ruby/node-$NODE_VERSION
 ENV PATH /app/heroku/ruby/node-$NODE_VERSION/bin:$PATH
 
