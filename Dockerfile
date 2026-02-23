@@ -1,15 +1,16 @@
-FROM heroku/heroku:22-build
+FROM heroku/heroku:24-build
 
 # Which versions?
-ENV RUBY_VERSION 3.2.2
+ENV RUBY_VERSION 3.4.8
 # https://devcenter.heroku.com/articles/ruby-support#libraries
-ENV BUNDLER_VERSION 2.3.10
+ENV BUNDLER_VERSION 4.0.6
 ENV NODE_VERSION 24.11.1
 ENV YARN_VERSION 1.22.19
 
 ENV LC_ALL en_US.UTF-8
 
 # Create some needed directories
+USER root
 RUN mkdir -p /app/user
 WORKDIR /app/user
 
