@@ -4,9 +4,9 @@ Usage: `FROM nerdsandcompany/docker-heroku-rails`
 
 ## Specifications
 
-- Heroku 22
-- Ruby 3.2.2
-- Bundler 2.3.10
+- Heroku 24
+- Ruby 3.4.8
+- Bundler 4.0.6
 - Node 24.11.1
 - Yarn 1.22.19
 - Chrome
