@@ -63,7 +63,6 @@ ONBUILD ENV GITHUB_TOKEN $GITHUB_TOKEN
 
 # export env vars during run time
 RUN mkdir -p /app/.profile.d/
-RUN echo "cd /app/user/" > /app/.profile.d/home.sh
 RUN echo "export PATH=\"$PATH\" GEM_PATH=\"$GEM_PATH\" GEM_HOME=\"$GEM_HOME\" SECRET_KEY_BASE=\"\${SECRET_KEY_BASE:-$SECRET_KEY_BASE}\" BUNDLE_RUBYGEMS__PKG__GITHUB__COM=\"$NERDS_GITHUB_TOKEN\" BUNDLE_APP_CONFIG=\"$BUNDLE_APP_CONFIG\"" > /app/.profile.d/ruby.sh
 
 # Make sure private dependencies are copied
@@ -83,5 +82,7 @@ ONBUILD ADD . /app/user
 
 ONBUILD COPY ./init.sh /usr/bin/init.sh
 ONBUILD RUN chmod +x /usr/bin/init.sh
+
+WORKDIR /app/user/
 
 ENTRYPOINT ["/usr/bin/init.sh"]
