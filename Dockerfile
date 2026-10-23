@@ -72,15 +72,6 @@ RUN echo "export PATH=\"$PATH\" GEM_PATH=\"$GEM_PATH\" GEM_HOME=\"$GEM_HOME\" SE
 # Make sure private dependencies are copied
 ONBUILD COPY ./vendor /app/user/vendor
 
-# Run bundler to cache dependencies
-ONBUILD COPY ["Gemfile", "Gemfile.lock", "/app/user/"]
-ONBUILD RUN bundle install --jobs 4
-
-# run npm or yarn install
-# add yarn.lock to .slugignore in your project
-ONBUILD ADD package*.json yarn.* .npmr* /app/user/
-ONBUILD RUN [ -f yarn.lock ] && yarn install --no-progress || npm install
-
 # Add all files
 ONBUILD ADD . /app/user
 
