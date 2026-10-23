@@ -9,8 +9,6 @@ Usage: `FROM nerdsandcompany/docker-heroku-rails`
 - Bundler 4.0.6
 - Node 24.11.1
 - Yarn 1.22.19
-- Chrome
-- ChromeDriver
 
 ## Versioning & Releases
 
