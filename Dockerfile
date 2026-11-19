@@ -1,7 +1,7 @@
 FROM heroku/heroku:24-build
 
 # Which versions?
-ENV RUBY_VERSION 3.4.8
+ENV RUBY_VERSION 3.4.13
 # https://devcenter.heroku.com/articles/ruby-support#libraries
 ENV BUNDLER_VERSION 4.0.6
 ENV NODE_VERSION 24.11.1
